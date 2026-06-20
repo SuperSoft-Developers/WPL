@@ -15,22 +15,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Setup CMake
-        uses: lukka/get-cmake@latest
-
-      - name: Configure
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Configure CMake
+        run: cmake -S . -B build
 
       - name: Build
         run: cmake --build build --config Release
 
-      - name: Upload Executable
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: WPL-Windows
+          name: WPL
           path: |
             build/**/*.exe
             build/**/*.dll
